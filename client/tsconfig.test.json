@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "types": ["vite/client", "node"], "resolveJsonModule": true, "noUnusedLocals": false },
+  "include": ["src", "tests", "vitest.config.mts"]
+}

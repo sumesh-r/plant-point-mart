@@ -1,0 +1,44 @@
+{
+  "_comment": "Contact/address cases checked by BOTH the server (zod schemas) and the website (client/src/lib/validation.ts), so the two can never disagree. Each case changes one field of `valid`.",
+  "valid": {
+    "fullName": "Priya Raman",
+    "phone": "9876543210",
+    "addressLine": "12, Gandhi Nagar, near bus stand",
+    "city": "Coimbatore",
+    "state": "Tamil Nadu",
+    "pincode": "641046",
+    "notes": "About 10 indoor plants"
+  },
+  "cases": [
+    { "name": "the address that started this bug report", "field": "addressLine", "value": "test", "valid": false },
+    { "name": "address of exactly 5 characters", "field": "addressLine", "value": "12 MG", "valid": true },
+    { "name": "address padded with spaces is trimmed", "field": "addressLine", "value": "   test   ", "valid": false },
+    { "name": "a long, detailed address", "field": "addressLine", "value": "Door 4B, 2nd floor, Sri Lakshmi Apartments, 3rd cross street, RS Puram, opposite the Corporation park", "valid": true },
+    { "name": "address over 300 characters", "field": "addressLine", "repeat": 301, "valid": false },
+    { "name": "empty address", "field": "addressLine", "value": "", "valid": false },
+
+    { "name": "one-letter name", "field": "fullName", "value": "A", "valid": false },
+    { "name": "two-letter name", "field": "fullName", "value": "Al", "valid": true },
+    { "name": "name over 80 characters", "field": "fullName", "repeat": 81, "valid": false },
+
+    { "name": "10-digit mobile", "field": "phone", "value": "9876543210", "valid": true },
+    { "name": "mobile with +91 and spaces", "field": "phone", "value": "+91 98765 43210", "valid": true },
+    { "name": "landline with dash", "field": "phone", "value": "0422-2345678", "valid": true },
+    { "name": "too short", "field": "phone", "value": "12345", "valid": false },
+    { "name": "letters", "field": "phone", "value": "98765abcde", "valid": false },
+    { "name": "too long", "field": "phone", "value": "+91 98765 43210 1", "valid": false },
+
+    { "name": "one-letter city", "field": "city", "value": "C", "valid": false },
+    { "name": "normal city", "field": "city", "value": "Ooty", "valid": true },
+    { "name": "one-letter state", "field": "state", "value": "T", "valid": false },
+
+    { "name": "6-digit pincode", "field": "pincode", "value": "641046", "valid": true },
+    { "name": "5-digit pincode", "field": "pincode", "value": "64104", "valid": false },
+    { "name": "7-digit pincode", "field": "pincode", "value": "6410461", "valid": false },
+    { "name": "pincode with a space inside", "field": "pincode", "value": "641 046", "valid": false },
+    { "name": "pincode with letters", "field": "pincode", "value": "64A046", "valid": false },
+
+    { "name": "notes over 1000 characters", "field": "notes", "repeat": 1001, "valid": false },
+    { "name": "empty notes are fine", "field": "notes", "value": "", "valid": true }
+  ]
+}
